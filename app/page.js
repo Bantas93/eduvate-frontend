@@ -4,13 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Swal from "sweetalert2";
+import { setAuthCookies } from "./lib/auth/setAuthCookies";
 
 export default function Home() {
   const router = useRouter();
   const [role, setRole] = useState("user");
-  const [tenantId, setTenantId] = useState("");
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    tenantId: "",
+    username: "",
+    password: "",
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,11 +25,7 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          tenantId: tenantId,
-          username: username,
-          password: password,
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (!res.ok) {
@@ -33,12 +33,26 @@ export default function Home() {
       }
 
       const data = await res.json();
-      console.log(data.accessToken);
+      console.log(data);
+      await setAuthCookies(data);
+      Swal.fire(
+        "Login Berhasil !",
+        `Selamat datang .. ${formData.username}!`,
+        "success"
+      ).then(() => router.push("/dashboard"));
     } catch (error) {
       console.error("error POST", error.message);
     }
   };
 
+  const handelChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
   return (
     <div className="flex justify-center items-center h-screen w-full text-xs bg-[url('/images/bg.png')] bg-cover bg-center">
       <div className="w-full max-w-sm flex flex-col">
@@ -46,9 +60,11 @@ export default function Home() {
           <div className="flex items-center justify-center font-bold text-[#3B82F6]">
             <Image
               src="/images/logo.png"
-              width={150}
-              height={150}
+              width={120}
+              height={120}
               alt="Picture of the author"
+              className="w-auto h-auto"
+              priority
             />
           </div>
         </div>
@@ -58,7 +74,7 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           <div className="flex flex-row">
-            <div className="font-bold">Login as :</div>
+            <div className="font-bold text-xl">Login as :</div>
             <div className="flex flex-row gap-4 justify-center items-center ps-5">
               {/* Radio User */}
               <label className="flex items-center gap-1">
@@ -94,8 +110,8 @@ export default function Home() {
               className="border border-[#3B82F6] rounded w-full px-2 py-1 focus:outline-none focus:ring-2 focus:ring-[#3B82F6]"
               type="text"
               name="tenantId"
-              value={tenantId}
-              onChange={(e) => setTenantId(e.target.value)}
+              value={formData.tenantId}
+              onChange={handelChange}
               placeholder="Masukkan Tenant ID"
             />
           </div>
@@ -107,8 +123,8 @@ export default function Home() {
                 className="border border-[#3B82F6] rounded w-full px-2 py-1 focus:outline-none focus:ring-2 focus:ring-[#3B82F6]"
                 type="text"
                 name="username"
-                value={username}
-                onChange={(e) => setUserName(e.target.value)}
+                value={formData.username}
+                onChange={handelChange}
                 placeholder="Masukkan Username"
               />
             </div>
@@ -120,8 +136,8 @@ export default function Home() {
               className="border border-[#3B82F6] rounded w-full px-2 py-1 focus:outline-none focus:ring-2 focus:ring-[#3B82F6]"
               type="password"
               name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formData.password}
+              onChange={handelChange}
               placeholder="Masukkan Password"
             />
           </div>
