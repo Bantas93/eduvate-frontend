@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 
 export async function deleteCookies() {
-  cookies().delete("accessToken");
-  cookies().delete("refreshToken");
+  const cookieStore = await cookies();
+  cookieStore.delete("accessToken");
+  cookieStore.delete("refreshToken");
 }

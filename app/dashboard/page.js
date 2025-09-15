@@ -1,18 +1,10 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { deleteCookies } from "../lib/auth/deleteCookies";
+import { LogoutButton } from "../components/LogoutButton";
 
 const Page = () => {
-  const router = useRouter();
-  const handleLogout = async () => {
-    await deleteCookies();
-    router.push("/");
-  };
   return (
     <div className="text-center">
-      <button className=" border rounded-lg px-2 py-1" onClick={handleLogout}>
-        Logout
-      </button>
+      <LogoutButton />
     </div>
   );
 };
