@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 export async function setAuthCookies(data) {
   const cookieStore = await cookies();
-
+  // parsing ExpiresAt dari string ke object Date, dan dari date ubah ke  format detik
   cookieStore.set("accessToken", data.accessToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
