@@ -15,9 +15,26 @@ export default function Home() {
     username: "",
     password: "",
   });
-
+  const [isAgree, setIsAgree] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    for (const key in formData) {
+      if (!formData[key]) {
+        // setError(`Field ${key} Wajib diisi !`);
+        Swal.fire("Gagal Login !", `${key} Wajib diisi`, "error");
+        return;
+      }
+    }
+
+    if (!isAgree) {
+      Swal.fire(
+        "Login Gagal !",
+        "Anda haru menyetujui Terms and Policy",
+        "error"
+      );
+      return;
+    }
 
     try {
       const res = await fetch("http://localhost:8080/api/v1/auth/tenant", {
@@ -33,7 +50,6 @@ export default function Home() {
       }
 
       const data = await res.json();
-      console.log(data);
       await setAuthCookies(data);
       Swal.fire(
         "Login Berhasil !",
@@ -53,6 +69,7 @@ export default function Home() {
       [name]: value,
     }));
   };
+
   return (
     <div className="flex justify-center items-center h-screen w-full text-xs bg-[url('/images/bg.png')] bg-cover bg-center">
       <div className="w-full max-w-sm flex flex-col">
@@ -143,7 +160,11 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-2 text-sm">
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              checked={isAgree}
+              onChange={(e) => setIsAgree(e.target.checked)}
+            />
             <span>
               I agree to{" "}
               <Link href="" className="text-[#3B82F6] underline">
