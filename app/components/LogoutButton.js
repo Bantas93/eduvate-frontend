@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import { deleteCookies } from "../lib/auth/deleteCookies";
 
 export const LogoutButton = () => {
   const router = useRouter();

@@ -3,13 +3,15 @@
 1. Copy this repo, in file run :
 
 ```shell
-docker build -t eduvate .
+#Development
+sudo docker compose -f compose-frontend.yml --profile dev up --build
 ```
 
-if success, the build will running frontend application. run :
+or
 
 ```shell
-sudo docker run -p 3000:3000 eduvate
+#Production
+sudo docker compose -f compose-frontend.yml --profile prod up --build
 ```
 
 2. Access the frontend application at:
