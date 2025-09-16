@@ -9,7 +9,10 @@ export const LogoutButton = () => {
     Swal.fire("Berhasil Logout !", "", "success").then(() => router.push("/"));
   };
   return (
-    <button className=" border rounded-lg px-2 py-1" onClick={handleLogout}>
+    <button
+      className=" border rounded-lg px-3 py-1 hover:bg-white hover:text-black hover:cursor-pointer"
+      onClick={handleLogout}
+    >
       Logout
     </button>
   );

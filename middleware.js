@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 const protectedRoutes = [
   "/dashboard",
-  "/materiUjian",
+  "/ujian-materi",
   "/profile",
   // tambahkan route-private lain di sini
 ];
@@ -57,7 +57,7 @@ export const config = {
   matcher: [
     "/", // root
     "/dashboard/:path*",
-    "/materiUjian/:path*",
+    "/ujian-materi/:path*",
     "/profile/:path*",
     // tambahkan pattern lain bila perlu
   ],

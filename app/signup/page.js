@@ -14,13 +14,14 @@ export default function Home() {
     passwordConfirm: "",
   });
   const [error, setError] = useState("");
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     for (const key in formData) {
       if (!formData[key]) {
-        // setError(`Field ${key} Wajib diisi !`);
+        setError(`Field ${key} Wajib diisi !`);
         Swal.fire("Gagal Daftar !", `${key} Wajib diisi`, "error");
         return;
       }
@@ -35,7 +36,7 @@ export default function Home() {
       return;
     }
     setError("");
-
+    setIsSubmit(true);
     try {
       const res = await fetch("http://localhost:8080/api/v1/tenant/register", {
         method: "POST",
@@ -65,6 +66,8 @@ export default function Home() {
       });
     } catch (error) {
       console.error("error POST", error.message);
+    } finally {
+      setIsSubmit(false);
     }
   };
 
@@ -156,10 +159,18 @@ export default function Home() {
           <div className="flex flex-col mt-6 gap-3">
             <button
               type="submit"
-              className="w-full text-center text-white font-bold py-2 rounded-lg hover:opacity-90 bg-[#3B82F6] transition hover:cursor-pointer"
+              disabled={isSubmit}
+              className={`w-full text-center text-white font-bold py-2 rounded-lg hover:opacity-90  transition 
+                ${
+                  isSubmit
+                    ? "bg-[#3B82F6] cursor-not-allowed"
+                    : "bg-[#3B82F6] hover:bg-blue-600 hover:cursor-pointer"
+                }
+                `}
             >
-              Daftar
+              {isSubmit ? "Mendaftar..." : "Daftar"}
             </button>
+
             <button
               type="button"
               className="w-full text-center font-bold py-2 border border-gray-600 rounded-lg hover:bg-gray-100 transition hover:cursor-pointer"

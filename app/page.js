@@ -30,7 +30,7 @@ export default function Home() {
     if (!isAgree) {
       Swal.fire(
         "Login Gagal !",
-        "Anda haru menyetujui Terms and Policy",
+        "Anda haru menyetujui Terms Service and Privacy Policy",
         "error"
       );
       return;

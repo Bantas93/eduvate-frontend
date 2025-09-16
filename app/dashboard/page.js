@@ -1,12 +1,8 @@
 "use client";
-import { LogoutButton } from "../components/LogoutButton";
+import { LogoutButton } from "../_components/LogoutButton";
 
 const Page = () => {
-  return (
-    <div className="text-center">
-      <LogoutButton />
-    </div>
-  );
+  return <div>Halaman Dashboard</div>;
 };
 
 export default Page;
