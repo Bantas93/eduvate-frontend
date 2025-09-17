@@ -1,11 +1,8 @@
+"use server";
 import { NextResponse } from "next/server";
+import { getSecondLocal } from "./app/lib/helpers";
 
-const protectedRoutes = [
-  "/dashboard",
-  "/ujian-materi",
-  "/profile",
-  // tambahkan route-private lain di sini
-];
+const protectedRoutes = ["/dashboard", "/ujian-materi"];
 
 function isProtectedPath(pathname) {
   return protectedRoutes.some(
@@ -13,52 +10,85 @@ function isProtectedPath(pathname) {
   );
 }
 
-export function middleware(req) {
-  const token = req.cookies.get("accessToken")?.value;
+export async function middleware(req) {
   const { pathname } = req.nextUrl;
 
-  // 1) Kalau token TIDAK ADA dan mengakses route private -> redirect ke halaman login "/"
+  const token = req.cookies.get("accessToken")?.value;
+  const refreshToken = req.cookies.get("refreshToken")?.value;
   if (!token && isProtectedPath(pathname)) {
+    if (refreshToken) {
+      try {
+        const refreshRes = await fetch(
+          `http://localhost:8080/api/v1/auth/refresh-token`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${refreshToken}`,
+            },
+          }
+        );
+        if (refreshRes.ok) {
+          const data = await refreshRes.json();
+          // buat response baru
+          const res = NextResponse.next();
+          let expiresAt;
+          expiresAt = await getSecondLocal(data.expiresAt);
+          // set cookie accessToken
+          res.cookies.set("accessToken", data.accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+            path: "/",
+            maxAge: expiresAt,
+          });
+
+          // set refreshToken baru kalau dikirim
+          if (data.refreshToken) {
+            expiresAt = await getSecondLocal(data.expiresAt);
+
+            res.cookies.set("refreshToken", data.refreshToken, {
+              httpOnly: true,
+              secure: process.env.NODE_ENV === "production",
+              sameSite: "strict",
+              path: "/",
+              maxAge: 60 * 60 * 24 * 7,
+            });
+          }
+
+          return res;
+        }
+      } catch (err) {
+        console.error("Error refresh token:", err);
+        // kalau error refresh, terus redirect ke login
+      }
+    }
+
     return NextResponse.redirect(new URL("/", req.url));
   }
 
-  // 2) Kalau token ADA dan mencoba mengakses root "/" -> jangan biarkan
   if (token && pathname === "/") {
-    // Usahakan kembalikan ke halaman asal (referer) agar user "tetap di URL saat ini"
     const referer = req.headers.get("referer");
     if (referer) {
       try {
         const refUrl = new URL(referer);
-        // Pastikan referer bukan root (supaya tidak loop) dan return same-origin path
-        if (refUrl.pathname && refUrl.pathname !== "/") {
-          // Jika referer berasal dari host yang sama, redirect ke sana
-          if (refUrl.origin === new URL(req.url).origin) {
-            return NextResponse.redirect(refUrl);
-          }
+        if (
+          refUrl.pathname &&
+          refUrl.pathname !== "/" &&
+          refUrl.origin === new URL(req.url).origin
+        ) {
+          return NextResponse.redirect(refUrl);
         }
       } catch (e) {
-        // invalid referer -> ignore dan fallback ke dashboard
+        // ignore jika referer tidak valid
       }
     }
-
-    // fallback: redirect ke dashboard
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
-  // Default: lanjutkan request
   return NextResponse.next();
 }
 
-/**
- * Pastikan middleware hanya berjalan pada route yang relevan.
- * Tambahkan semua route yang perlu dicek (root + semua private route pattern).
- */
 export const config = {
-  matcher: [
-    "/", // root
-    "/dashboard/:path*",
-    "/ujian-materi/:path*",
-    "/profile/:path*",
-    // tambahkan pattern lain bila perlu
-  ],
+  matcher: ["/", "/dashboard/:path*", "/ujian-materi/:path*"],
 };

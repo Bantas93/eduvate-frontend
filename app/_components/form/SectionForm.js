@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
+import MultipleForm from "./MultipleForm";
 
-export default function FormQuestion() {
-  const [type, setType] = useState("pg");
+export default function SectionForm() {
+  const [answerType, setAnswerType] = useState("PG");
   return (
     <div className="flex flex-col h-full gap-3 text-sm">
       <div>
@@ -14,30 +15,36 @@ export default function FormQuestion() {
         <div className="flex flex-row gap-4">
           <button
             className="border rounded-lg px-2 hover:cursor-pointer hover:bg-gray-300 transition-all"
-            onClick={() => setType("pg")}
+            onClick={() => setAnswerType("PG")}
           >
             Pilihan ganda
           </button>
           <button
             className="border rounded-lg px-2 hover:cursor-pointer hover:bg-gray-300 transition-all"
-            onClick={() => setType("es")}
+            onClick={() => setAnswerType("ES")}
           >
             Essay
           </button>
           <button
             className="border rounded-lg px-2 hover:cursor-pointer hover:bg-gray-300 transition-all"
-            onClick={() => setType("cl")}
+            onClick={() => setAnswerType("CL")}
           >
             Check list
           </button>
         </div>
-        {type === "pg" ? (
-          <div className="border h-[100px] p-1">Content Pilihan Ganda</div>
-        ) : type === "es" ? (
-          <div className="border h-[100px] p-1">Content Pilihan essay</div>
-        ) : (
-          <div className="border h-[100px] p-1">Content Pilihan checklist</div>
-        )}
+
+        <div className="min-w-full min-h-[100px] w-fit h-fit border p-1">
+          {answerType === "PG" ? (
+            <MultipleForm
+              answerType={answerType}
+              setAnswerType={setAnswerType}
+            />
+          ) : answerType === "ES" ? (
+            <div>Content Pilihan essay</div>
+          ) : (
+            <div>Content Pilihan checklist</div>
+          )}
+        </div>
       </div>
       <div className="flex flex-row gap-4">
         <div>Tag Ujian Materi</div>

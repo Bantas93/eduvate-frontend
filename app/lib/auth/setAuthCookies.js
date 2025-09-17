@@ -1,15 +1,17 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { getSecondLocal } from "../helpers";
 
 export async function setAuthCookies(data) {
   const cookieStore = await cookies();
-  // parsing ExpiresAt dari string ke object Date, dan dari date ubah ke  format detik
+  const maxAge = await getSecondLocal(data.expiresAt);
+
   cookieStore.set("accessToken", data.accessToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    maxAge: 60 * 15,
+    maxAge: maxAge,
     path: "/",
   });
 

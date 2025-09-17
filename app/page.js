@@ -21,9 +21,14 @@ export default function Home() {
 
     for (const key in formData) {
       if (!formData[key]) {
-        // setError(`Field ${key} Wajib diisi !`);
-        Swal.fire("Gagal Login !", `${key} Wajib diisi`, "error");
-        return;
+        if (role === "tenant") {
+          if (key === "username") continue;
+          Swal.fire("Gagal Login !", `${key} Wajib diisi`, "error");
+          return;
+        } else {
+          Swal.fire("Gagal Login !", `${key} Wajib diisi`, "error");
+          return;
+        }
       }
     }
 
@@ -51,6 +56,7 @@ export default function Home() {
 
       const data = await res.json();
       await setAuthCookies(data);
+
       Swal.fire(
         "Login Berhasil !",
         `Selamat datang .. ${formData.username}!`,
