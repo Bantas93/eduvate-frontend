@@ -1,0 +1,34 @@
+"use client";
+import { useQuestions } from "@/app/context/QuetionsContext";
+
+export default function SectionDraft() {
+  const { handleSubmit } = useQuestions();
+  return (
+    <div className="grid grid-row gap-2 text-sm">
+      <div className="">Draft soal</div>
+
+      <div className="flex flex-col gap-2 h-full">
+        <div className="border mx-2 px-1">
+          <div className="flex flex-col gap-1 p-2">
+            <p> adksjfknvkvndkfnvkdn</p>
+            <div className="border-b-2 mx-1 "></div>
+            <div>Pilihan ganda</div>
+            <div className="flex flex-row gap-2">
+              <button className="border rounded-lg px-2 ">biologi</button>
+              <button className="border rounded-lg px-2 ">ipa</button>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex justify-center w-full">
+          <button
+            className="bg-blue-500 text-white rounded px-4 py-2"
+            onClick={handleSubmit}
+          >
+            Simpan Pertanyaan
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

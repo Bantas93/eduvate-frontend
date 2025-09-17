@@ -1,4 +1,5 @@
 import MainLayout from "../_components/MainLayout";
+import { QuestionsProvider } from "../context/QuetionsContext";
 
 export const metadata = {
   title: {
@@ -7,5 +8,9 @@ export const metadata = {
   },
 };
 export default function Layout({ children }) {
-  return <MainLayout>{children}</MainLayout>;
+  return (
+    <MainLayout>
+      <QuestionsProvider>{children}</QuestionsProvider>
+    </MainLayout>
+  );
 }

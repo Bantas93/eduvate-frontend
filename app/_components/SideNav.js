@@ -9,7 +9,7 @@ export default function SideNav() {
 
   const navLinks = [
     { href: "/dashboard", label: "Dashboard" },
-    { href: "/ujian-materi", label: "Ujian Materi" },
+    { href: "/exam", label: "Ujian Materi" },
   ];
   return (
     <aside className="row-span-1 col-span-1 bg-[#F3F4F6] border border-gray-300 shadow- p-4">

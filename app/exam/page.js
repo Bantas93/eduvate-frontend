@@ -1,3 +1,4 @@
+import SectionDraft from "../_components/form/SectionDraft";
 import SectionForm from "../_components/form/SectionForm";
 
 export default function Page() {
@@ -10,7 +11,7 @@ export default function Page() {
         <SectionForm />
       </div>
       <div className="row-span-1 col-span-1 bg-white border border-gray-300 p-2">
-        Draft soal
+        <SectionDraft />
       </div>
     </div>
   );

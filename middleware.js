@@ -2,7 +2,7 @@
 import { NextResponse } from "next/server";
 import { getSecondLocal } from "./app/lib/helpers";
 
-const protectedRoutes = ["/dashboard", "/ujian-materi"];
+const protectedRoutes = ["/dashboard", "/exam"];
 
 function isProtectedPath(pathname) {
   return protectedRoutes.some(
@@ -90,5 +90,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/", "/dashboard/:path*", "/ujian-materi/:path*"],
+  matcher: ["/", "/dashboard/:path*", "/exam/:path*"],
 };
