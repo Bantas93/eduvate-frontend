@@ -1,4 +1,7 @@
 "use client";
+
+import CheckListForm from "./CheckListForm";
+import EssayForm from "./EssayForm";
 import MultipleForm from "./MultipleForm";
 import { useQuestions } from "@/app/context/QuetionsContext";
 
@@ -11,7 +14,23 @@ export default function SectionForm() {
     exams,
     setExams,
     handleAddExam,
+    examName,
+    tag,
+    setTag,
   } = useQuestions();
+
+  const handleTag = (e) => {
+    const { examId, examName } = e;
+
+    if (tag === examName) {
+      setTag("");
+      setExams("");
+    } else {
+      setTag(examName);
+      setExams(examId);
+    }
+  };
+
   return (
     <div className="flex flex-col h-full gap-3 text-sm">
       <div>
@@ -28,19 +47,25 @@ export default function SectionForm() {
         <div>Jawaban :</div>
         <div className="flex flex-row gap-4">
           <button
-            className="border rounded-lg px-2 hover:cursor-pointer hover:bg-gray-300 transition-all"
+            className={`pb-1 px-2 hover:cursor-pointer hover:bg-gray-300
+              ${answerType === "PG" ? "border-b-4 border-blue-500" : ""}
+              `}
             onClick={() => setAnswerType("PG")}
           >
             Pilihan ganda
           </button>
           <button
-            className="border rounded-lg px-2 hover:cursor-pointer hover:bg-gray-300 transition-all"
+            className={`pb-1 px-2 hover:cursor-pointer hover:bg-gray-300
+              ${answerType === "ES" ? "border-b-4 border-blue-500" : ""}
+              `}
             onClick={() => setAnswerType("ES")}
           >
             Essay
           </button>
           <button
-            className="border rounded-lg px-2 hover:cursor-pointer hover:bg-gray-300 transition-all"
+            className={`pb-1 px-2 hover:cursor-pointer hover:bg-gray-300
+              ${answerType === "CL" ? "border-b-4 border-blue-500" : ""}
+              `}
             onClick={() => setAnswerType("CL")}
           >
             Check list
@@ -51,9 +76,9 @@ export default function SectionForm() {
           {answerType === "PG" ? (
             <MultipleForm />
           ) : answerType === "ES" ? (
-            <div>Content Pilihan essay</div>
+            <EssayForm />
           ) : (
-            <div>Content Pilihan checklist</div>
+            <CheckListForm />
           )}
         </div>
       </div>
@@ -61,19 +86,28 @@ export default function SectionForm() {
         <div className="flex flex-row gap-2 items-center">
           <div>Tag Ujian Materi</div>
           <div className="flex flex-row gap-4 py-1">
-            <button className="border rounded-lg px-2 hover:cursor-pointer hover:bg-gray-300 transition-all">
-              Biologi
-            </button>
-            <button className="border rounded-lg px-2 hover:cursor-pointer hover:bg-gray-300 transition-all">
-              Umum
-            </button>
-            <button className="border rounded-lg px-2 hover:cursor-pointer hover:bg-gray-300 transition-all">
-              IPA
-            </button>
+            {examName.map((ex) => {
+              return (
+                <button
+                  key={ex.examId}
+                  className={`border rounded-lg px-2 hover:cursor-pointer hover:bg-blue-400
+                   ${
+                     tag === ex.examName
+                       ? "bg-blue-400 text-white font-bold"
+                       : ""
+                   }
+                    `}
+                  value={tag}
+                  onClick={() => handleTag(ex)}
+                >
+                  {ex.examName}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        <div className="">
+        {/* <div className="">
           <h3 className="font-bold">Tag materi</h3>
           {exams.map((exam, idx) => (
             <div key={idx} className="mb-2">
@@ -99,10 +133,10 @@ export default function SectionForm() {
           >
             Tambah
           </button>
-        </div>
+        </div> */}
       </div>
       <div className="">
-        <button className="border rounded-lg px-2 hover:cursor-pointer hover:bg-gray-300 transition-all">
+        <button className="bg-blue-500 text-white rounded px-4 py-2 hover:cursor-pointer hover:bg-blue-600">
           SOAL SELANJUTNYA
         </button>
       </div>

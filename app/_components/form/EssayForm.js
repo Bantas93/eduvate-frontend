@@ -5,7 +5,7 @@ import AutoTextarea from "../AutoTextArea";
 import Dropdown from "../DropDown";
 import { useEffect } from "react";
 
-export default function MultipleForm() {
+export default function EssayForm() {
   const { answerOption, setAnswerOption, handleAddOption, setExams, setTag } =
     useQuestions();
 
@@ -18,8 +18,8 @@ export default function MultipleForm() {
   return (
     <div className="flex flex-col px-4 py-2">
       <div className="flex justify-between my-1">
-        <h3 className="font-bold">Opsi Jawaban</h3>
-        <h3 className="font-bold">Benar</h3>
+        <h3 className="font-bold">Jawaban</h3>
+        {/* <h3 className="font-bold">Benar</h3> */}
       </div>
 
       {answerOption.map((opt, idx) => (
@@ -30,13 +30,20 @@ export default function MultipleForm() {
             onChange={(e) =>
               setAnswerOption(
                 answerOption.map((o, i) =>
-                  i === idx ? { ...o, option: e.target.value } : o
+                  i === idx
+                    ? {
+                        ...o,
+                        option: e.target.value,
+                        isCorrect: true,
+                        label: "Essay",
+                      }
+                    : o
                 )
               )
             }
           />
 
-          <Dropdown
+          {/* <Dropdown
             value={opt.label}
             className="border px-2"
             onChange={(e) =>
@@ -46,9 +53,9 @@ export default function MultipleForm() {
                 )
               )
             }
-          />
+          /> */}
 
-          <label className="flex items-center gap-1 mx-3">
+          {/* <label className="flex items-center gap-1 mx-3">
             <input
               type="checkbox"
               checked={opt.isCorrect}
@@ -60,11 +67,11 @@ export default function MultipleForm() {
                 )
               }
             />
-          </label>
+          </label> */}
         </div>
       ))}
 
-      <div>
+      {/* <div>
         <button
           type="button"
           onClick={handleAddOption}
@@ -72,7 +79,7 @@ export default function MultipleForm() {
         >
           Tambah Opsi
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

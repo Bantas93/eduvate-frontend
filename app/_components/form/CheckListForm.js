@@ -5,7 +5,7 @@ import AutoTextarea from "../AutoTextArea";
 import Dropdown from "../DropDown";
 import { useEffect } from "react";
 
-export default function MultipleForm() {
+export default function CheckListForm() {
   const { answerOption, setAnswerOption, handleAddOption, setExams, setTag } =
     useQuestions();
 
@@ -30,13 +30,15 @@ export default function MultipleForm() {
             onChange={(e) =>
               setAnswerOption(
                 answerOption.map((o, i) =>
-                  i === idx ? { ...o, option: e.target.value } : o
+                  i === idx
+                    ? { ...o, option: e.target.value, label: "Checklist" }
+                    : o
                 )
               )
             }
           />
 
-          <Dropdown
+          {/* <Dropdown
             value={opt.label}
             className="border px-2"
             onChange={(e) =>
@@ -46,7 +48,7 @@ export default function MultipleForm() {
                 )
               )
             }
-          />
+          /> */}
 
           <label className="flex items-center gap-1 mx-3">
             <input

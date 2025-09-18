@@ -1,8 +1,3 @@
-"use client";
-import { LogoutButton } from "../_components/LogoutButton";
-
-const Page = () => {
+export default function Page() {
   return <div>Halaman Dashboard</div>;
-};
-
-export default Page;
+}

@@ -22,7 +22,7 @@ export default function SectionDraft() {
 
         <div className="flex justify-center w-full">
           <button
-            className="bg-blue-500 text-white rounded px-4 py-2"
+            className="bg-blue-500 text-white rounded px-4 py-2 hover:cursor-pointer hover:bg-blue-600"
             onClick={handleSubmit}
           >
             Simpan Pertanyaan

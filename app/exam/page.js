@@ -3,7 +3,7 @@ import SectionForm from "../_components/form/SectionForm";
 
 export default function Page() {
   return (
-    <div className="grid grid-rows-[40px_1fr] grid-cols-[2fr_1fr] h-full">
+    <div className="grid grid-rows-[40px_1fr] grid-cols-[5fr_2fr] h-full">
       <div className="row-span-1 col-span-2 border border-gray-300 flex items-center justify-between px-4">
         Buat Soal Baru
       </div>
