@@ -3,13 +3,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  BookOpenIcon,
+  HomeIcon,
+  PencilSquareIcon,
+} from "@heroicons/react/24/outline";
 
 export default function SideNav() {
   const pathname = usePathname();
 
   const navLinks = [
-    { href: "/dashboard", label: "Dashboard" },
-    { href: "/exam", label: "Ujian Materi" },
+    { href: "/dashboard", label: "Dashboard", icon: HomeIcon },
+    { href: "/exam", label: "Materials", icon: BookOpenIcon },
+    { href: "/exam-class", label: "Exam Class", icon: PencilSquareIcon },
   ];
   return (
     <aside className="row-span-1 col-span-1 bg-[#F3F4F6] border border-gray-300 shadow- p-4">
@@ -42,7 +48,10 @@ export default function SideNav() {
               }
             `}
             >
-              {link.label}
+              <div className="flex flex-row justify-items-start items-center gap-2 ps-2">
+                <link.icon className="h-5 w-5" />
+                {link.label}
+              </div>
             </Link>
           );
         })}
