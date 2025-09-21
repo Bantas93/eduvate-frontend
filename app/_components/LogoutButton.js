@@ -1,6 +1,7 @@
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { deleteCookies } from "../lib/auth/deleteCookies";
+import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline";
 
 export const LogoutButton = () => {
   const router = useRouter();
@@ -10,10 +11,10 @@ export const LogoutButton = () => {
   };
   return (
     <button
-      className=" border rounded-lg px-3 py-1 hover:bg-white hover:text-black hover:cursor-pointer"
+      className="h-8 w-12 rounded-lg px-3 py-1 hover:bg-white hover:text-black hover:cursor-pointer"
       onClick={handleLogout}
     >
-      Logout
+      <ArrowRightStartOnRectangleIcon />
     </button>
   );
 };

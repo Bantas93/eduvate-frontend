@@ -133,26 +133,28 @@ export default function Page() {
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto border rounded shadow space-y-4">
-      <h1 className="text-xl font-bold">Selamat Datang di Ujian</h1>
-      <p className="text-gray-600">
-        Silakan masukkan ID User Anda untuk memulai ujian.
-      </p>
+    <div className="h-screen flex justify-center items-center">
+      <div className="p-6 max-w-md mx-auto border rounded-xl shadow space-y-4">
+        <h1 className="text-xl font-bold">Selamat Datang di Ujian</h1>
+        <p className="text-gray-600">
+          Silakan masukkan ID User Anda untuk memulai ujian.
+        </p>
 
-      <input
-        type="text"
-        placeholder="Masukkan ID User"
-        value={idUser}
-        onChange={(e) => setIdUser(e.target.value)}
-        className="w-full px-3 py-2 border rounded"
-      />
+        <input
+          type="text"
+          placeholder="Masukkan ID User"
+          value={idUser}
+          onChange={(e) => setIdUser(e.target.value)}
+          className="w-full px-3 py-2 border rounded"
+        />
 
-      <button
-        onClick={handleMulai}
-        className="px-4 py-2 bg-blue-500 text-white rounded w-full"
-      >
-        Mulai Ujian
-      </button>
+        <button
+          onClick={handleMulai}
+          className="px-4 py-2 bg-blue-500 text-white rounded w-full"
+        >
+          Mulai Ujian
+        </button>
+      </div>
     </div>
   );
 }

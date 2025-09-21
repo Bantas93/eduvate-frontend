@@ -38,7 +38,7 @@ export default function MultipleForm() {
 
           <Dropdown
             value={opt.label}
-            className="border px-2"
+            className="border rounded-lg px-2 text-[#3B82F6] hover:cursor-pointer"
             onChange={(e) =>
               setAnswerOption(
                 answerOption.map((o, i) =>
@@ -52,6 +52,7 @@ export default function MultipleForm() {
             <input
               type="checkbox"
               checked={opt.isCorrect}
+              className="text-white border"
               onChange={(e) =>
                 setAnswerOption(
                   answerOption.map((o, i) =>
@@ -68,7 +69,7 @@ export default function MultipleForm() {
         <button
           type="button"
           onClick={handleAddOption}
-          className="px-2 py-1 border rounded"
+          className="px-2 py-1 border rounded text-[#3B82F6] hover:cursor-pointer hover:bg-[#3B82F6] hover:text-white"
         >
           Tambah Opsi
         </button>

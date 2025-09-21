@@ -48,7 +48,7 @@ export default function SectionForm() {
         <div className="flex flex-row gap-4">
           <button
             className={`pb-1 px-2 hover:cursor-pointer hover:bg-gray-300
-              ${answerType === "PG" ? "border-b-4 border-blue-500" : ""}
+              ${answerType === "PG" ? "border-b-4 border-[#3B82F6]" : ""}
               `}
             onClick={() => setAnswerType("PG")}
           >
@@ -56,7 +56,7 @@ export default function SectionForm() {
           </button>
           <button
             className={`pb-1 px-2 hover:cursor-pointer hover:bg-gray-300
-              ${answerType === "ES" ? "border-b-4 border-blue-500" : ""}
+              ${answerType === "ES" ? "border-b-4 border-[#3B82F6]" : ""}
               `}
             onClick={() => setAnswerType("ES")}
           >
@@ -64,7 +64,7 @@ export default function SectionForm() {
           </button>
           <button
             className={`pb-1 px-2 hover:cursor-pointer hover:bg-gray-300
-              ${answerType === "CL" ? "border-b-4 border-blue-500" : ""}
+              ${answerType === "CL" ? "border-b-4 border-[#3B82F6]" : ""}
               `}
             onClick={() => setAnswerType("CL")}
           >
@@ -72,7 +72,7 @@ export default function SectionForm() {
           </button>
         </div>
 
-        <div className="min-w-full min-h-[100px] w-fit h-fit border">
+        <div className="min-w-full min-h-[100px] w-fit h-fit border border-[#F59E0B] rounded-xl">
           {answerType === "PG" ? (
             <MultipleForm />
           ) : answerType === "ES" ? (
@@ -90,10 +90,10 @@ export default function SectionForm() {
               return (
                 <button
                   key={ex.examId}
-                  className={`border rounded-lg px-2 hover:cursor-pointer hover:bg-blue-400
+                  className={`border bg-[#10B981] text-white rounded-lg px-2 py-0.5 hover:cursor-pointer hover:bg-[#0b9467]
                    ${
                      tag === ex.examName
-                       ? "bg-blue-400 text-white font-bold"
+                       ? "bg-[#10B981] text-white font-bold"
                        : ""
                    }
                     `}
@@ -136,7 +136,7 @@ export default function SectionForm() {
         </div> */}
       </div>
       <div className="">
-        <button className="bg-blue-500 text-white rounded px-4 py-2 hover:cursor-pointer hover:bg-blue-600">
+        <button className="bg-[#3B82F6] text-white rounded px-8 py-2 hover:cursor-pointer hover:bg-blue-600">
           SOAL SELANJUTNYA
         </button>
       </div>

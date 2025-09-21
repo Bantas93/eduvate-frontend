@@ -78,7 +78,7 @@ export default function Page() {
   const handleCopy = () => {
     navigator.clipboard.writeText(generateLink);
     setCopied(true);
-    setTimeout(() => setCopied(false), 1000);
+    setTimeout(() => setCopied(false), 2000);
   };
   return (
     <div className="h-full py-2 flex flex-col gap-2 text-sm">
@@ -87,7 +87,7 @@ export default function Page() {
         <select
           value={bankSoal}
           onChange={(e) => setBankSoal(e.target.value)}
-          className="px-2 py-1 border rounded hover:cursor-pointer hover:bg-blue-400 hover:text-white"
+          className="px-2 py-1 border rounded hover:cursor-pointer text-[#3B82F6] hover:bg-gray-100"
           // required
         >
           <option value="Umum">Umum</option>
@@ -101,7 +101,7 @@ export default function Page() {
         <select
           value={timer}
           onChange={(e) => setTimer(e.target.value)}
-          className="px-2 py-1 border rounded hover:cursor-pointer hover:bg-blue-400 hover:text-white"
+          className="px-2 py-1 border rounded hover:cursor-pointer text-[#3B82F6] hover:bg-gray-100"
           // required
         >
           <option value={900}>15 Menit</option>
@@ -115,7 +115,7 @@ export default function Page() {
       </div>
       <div>
         <button
-          className="px-2 py-1 border rounded-lg hover:cursor-pointer hover:bg-blue-400 hover:text-white"
+          className="px-2 py-1 border rounded-lg hover:cursor-pointer text-[#3B82F6] hover:bg-gray-100"
           onClick={handleGenerateLink}
         >
           Buat Link
@@ -124,7 +124,7 @@ export default function Page() {
 
       {generateLink && (
         <div className="flex gap-2">
-          <button className="border rounded px-2 py-1 bg-gray-300">
+          <button className="border rounded px-2 py-1 bg-gray-200">
             {generateLink}
           </button>
           <button

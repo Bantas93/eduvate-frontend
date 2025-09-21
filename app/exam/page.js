@@ -7,7 +7,7 @@ export default function Page() {
       <div className="row-span-1 col-span-2 border border-gray-300 flex items-center justify-between px-4">
         Buat Soal Baru
       </div>
-      <div className="row-span-1 col-span-1 bg-[#F3F4F6] border border-gray-300 shadow- p-2">
+      <div className="row-span-1 col-span-1 border border-gray-300 shadow- p-2">
         <SectionForm />
       </div>
       <div className="row-span-1 col-span-1 bg-white border border-gray-300 p-2">

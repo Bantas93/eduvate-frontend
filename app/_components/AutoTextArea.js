@@ -14,7 +14,7 @@ export default function AutoTextarea({ onChange, placeholder, value }) {
     <textarea
       type="text"
       ref={ref}
-      className="w-full resize-none overflow-hidden p-2 border rounded"
+      className="w-full resize-none overflow-hidden p-2 border rounded border-[#3B82F6]"
       rows={1}
       onInput={handleInput}
       onChange={onChange}
